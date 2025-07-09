@@ -6,9 +6,9 @@ def buildJar() {
 def buildImage() {
     echo "building the docker image..."
     withCredentials([usernamePassword(credentialsId: 'dockerhub-repo', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-        sh 'docker build -t mohameddiaa10/myrepo:gradle-simple-app .'
+        sh 'docker build -t mohameddiaa10/myrepo:gradle-simple-app-Diaa .'
         sh 'echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin'
-        sh 'docker push mohameddiaa10/myrepo:gradle-simple-app'
+        sh 'docker push mohameddiaa10/myrepo:gradle-simple-app-Diaa'
     }
 } 
 
