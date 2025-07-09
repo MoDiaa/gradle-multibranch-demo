@@ -4,6 +4,11 @@ def gv
 
 pipeline {
     agent any
+
+    tools {
+        gradle 'gradle' // Name of the Gradle version configured in Jenkins
+    }
+
     stages {
 
         stage("init") {
