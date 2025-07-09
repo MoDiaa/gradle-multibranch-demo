@@ -1,5 +1,14 @@
 #!/usr/bin/env groovy
 
+library identifier: 'jenkins-shared-library@main', retriever: modernSCM(
+        [$class: 'GitSCMSource',
+         remote: 'https://github.com/MoDiaa/jenkins-shared-library.git',
+         credentialsId: 'github'
+        ]
+)
+
+
+
 def gv
 
 pipeline {
@@ -11,28 +20,20 @@ pipeline {
 
     stages {
 
-        stage("init") {
-            steps {
-                script {
-                    gv = load "script.groovy"
-                }
-            }
-        }
-
         stage("build jar") {
             steps {
                 script {
-                    echo "Building the Jar..."
-                    gv.buildJar()
+                    buildJar()
                 }
             }
         }
 
-        stage("build image") {
+        stage("build and push image") {
             steps {
                 script {
-                    echo "Building the Docker image..."
-                    gv.buildImage()
+                    buildImage 'mohameddiaa10/myrepo:gradle-simple-app'
+                    dockerLogin()
+                    dockerPush 'mohameddiaa10/myrepo:gradle-simple-app'
                 }
             }
         }
